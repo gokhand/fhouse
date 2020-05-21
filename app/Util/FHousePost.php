@@ -31,13 +31,13 @@ class FhousePost
 		return $this->endpointRequest('/api/v3/transactions/report', "POST", $params);
 	}
 
-	public function transactionList()
+	public function transactionList($page)
 	{
 		$params = [
             "fromDate" => "2011-01-01",
             "toDate"   => "2020-05-01"
           ];
-		return $this->endpointRequest('/api/v3/transaction/list', "POST", $params);
+		return $this->endpointRequest('/api/v3/transaction/list?page='.$page, "POST", $params);
 	}
 
 	public function getTransaction($transactionId)

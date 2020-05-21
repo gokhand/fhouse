@@ -16,22 +16,53 @@ class FHouseController extends Controller
 
     public function report()
     {
-    	$report = $this->post->report();
+        $report = $this->post->report();
 
-    	return view('report', compact('report'));
+        if ($this->checkDeclined($report)) {
+            return redirect('/main/logout');
+        } else {
+            return view('report', compact('report'));
+        }
+    	
     }
 
-    public function transactions()
+    public function transactions($page = 1)
     {
-    	$transactions = $this->post->transactionList();
+        $transactions = $this->post->transactionList($page);
+        
+        $current_page = $transactions->current_page;
+        $has_next_page = $transactions->next_page_url;
+        $has_previous_page = $transactions->prev_page_url;
 
-    	return view('transactions', compact('transactions'));
+        if ($this->checkDeclined($transactions)) {
+            return redirect('/main/logout');
+        } else {
+            return view(
+                'transactions', compact(
+                    'transactions', 'current_page', 'has_next_page', 'has_previous_page',
+                )
+            );
+        }
+
     }
 
     public function singleTransaction($transactionId)
     {
     	$transaction = $this->post->getTransaction($transactionId);
 
-    	return view('transaction', compact('transaction'));
+        if ($this->checkDeclined($transaction)) {
+            return redirect('/main/logout');
+        } else {
+            return view('transaction', compact('transaction'));
+        }
+    }
+
+    public function checkDeclined($response)
+    {
+    	if(isset($response->status) && $response->status == "DECLINED") {
+			return 1;
+		} else {
+            return 0;
+        }
     }
 }
