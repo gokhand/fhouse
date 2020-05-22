@@ -1,9 +1,8 @@
 @include('includes.top')
+    @if(Session::get('tokenApi') !== null)
+        @include('includes.header')
+    @endif
     <div class="container">
-        @if(Session::get('tokenApi') == null)
             @yield('content')
-        @else
-            <script>window.location = "{{ url('/') }}/home";</script>
-        @endif
     </div>
 @include('includes.bottom')

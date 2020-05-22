@@ -1,4 +1,4 @@
-@extends('layouts.logged_master')
+@extends('layouts.master')
 
 @section('content')
 

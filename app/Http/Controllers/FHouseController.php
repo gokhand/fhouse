@@ -30,13 +30,13 @@ class FHouseController extends Controller
     {
         $transactions = $this->post->transactionList($page);
         
-        $current_page = $transactions->current_page;
-        $has_next_page = $transactions->next_page_url;
-        $has_previous_page = $transactions->prev_page_url;
-
         if ($this->checkDeclined($transactions)) {
             return redirect('/main/logout');
         } else {
+            $current_page = $transactions->current_page;
+            $has_next_page = $transactions->next_page_url;
+            $has_previous_page = $transactions->prev_page_url;
+            
             return view(
                 'transactions', compact(
                     'transactions', 'current_page', 'has_next_page', 'has_previous_page',
