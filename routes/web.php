@@ -19,9 +19,12 @@ Route::get('/home', function () {
     return view('home');
 });
 
-Route::get('report', 'FHouseController@report');
-Route::get('transactions/{page?}', 'FHouseController@transactions');
-Route::get('transaction/{transactionId}', 'FHouseController@singleTransaction');
+Route::get('report', 'FHouseController@report')
+        ->middleware(['checksession']);
+Route::get('transactions/{page?}', 'FHouseController@transactions')
+        ->middleware(['checksession']);
+Route::get('transaction/{transactionId}', 'FHouseController@singleTransaction')
+        ->middleware(['checksession']);
 Route::get('/main', 'MainController@index');
 Route::post('/main/checklogin', 'MainController@checklogin');
 Route::get('/main/logout', 'MainController@logout');
