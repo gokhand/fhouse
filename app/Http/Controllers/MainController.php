@@ -18,6 +18,11 @@ class MainController extends Controller
     	$this->post = $post;
     }
 
+    function home()
+    {
+        return view('home');
+    }
+
     function index()
     {
         return view('login');
@@ -35,7 +40,7 @@ class MainController extends Controller
         
         if(isset($login_status->status) && $login_status->status == "APPROVED") {
             Session::put('tokenApi', $login_status->token);
-            return redirect('home');
+            return $this->successlogin();
         } else {
             return redirect()->back()->withInput($request->only('email', 'remember'))->withErrors([
                 'error' => 'Wrong email or password.',

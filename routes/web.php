@@ -11,6 +11,7 @@
 |
 */
 
+/*
 Route::get('/', function () {
     return view('home');
 });
@@ -18,7 +19,11 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('home');
 });
-
+*/
+Route::get('/', 'MainController@home')
+        ->middleware(['checksession']);
+Route::get('/home', 'MainController@home')
+        ->middleware(['checksession']);
 Route::get('report', 'FHouseController@report')
         ->middleware(['checksession']);
 Route::get('transactions/{page?}', 'FHouseController@transactions')
